@@ -27,7 +27,7 @@ import tracemalloc
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 
 import config
-from outline_utils import load_text_file
+from character_utils import load_text_file
 
 # Default models to benchmark
 DEFAULT_MODELS = [

@@ -10,7 +10,22 @@ import glob
 from typing import Dict, List, Optional, Union
 
 import config
-from outline_utils import load_text_file
+
+def load_text_file(file_path: str) -> str:
+    """
+    Load text content from a file.
+    
+    Args:
+        file_path: Path to the file.
+        
+    Returns:
+        The text content of the file.
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return file.read()
+    except Exception as e:
+        raise ValueError(f"Error reading file {file_path}: {e}")
 
 def list_available_characters() -> List[str]:
     """
