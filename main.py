@@ -21,6 +21,10 @@ from outline_utils import (
     get_continuation_text,
     generate_beat_prompts
 )
+from character_utils import (
+    list_available_characters,
+    integrate_characters_with_prompt
+)
 
 def setup_generator(args):
     """
@@ -227,6 +231,11 @@ def generate_single_story(generator, persona: str, seed_scene: str, args):
     """
     prompt = f"{persona}\n\nWrite a Victorian-era short story that begins with the following scene:\n\n{seed_scene}"
     
+    # Add character profiles if specified
+    if args.characters:
+        print(f"Incorporating character profiles: {', '.join(args.characters)}")
+        prompt = integrate_characters_with_prompt(prompt, args.characters)
+    
     print("Generating story...")
     response = generator(prompt, return_full_text=False)[0]['generated_text']
     
@@ -275,6 +284,13 @@ def generate_beat_story(generator, outline_path: str, persona: str, args):
         # Format the context for this beat
         context = format_story_context(outline, i, previous_text)
         prompt = f"{persona}\n\n{context}\n\nContinue the story from here:"
+        
+        # Add character profiles if specified
+        if args.characters:
+            # Only mention for the first beat to avoid repetition
+            if i == 0:
+                print(f"Incorporating character profiles: {', '.join(args.characters)}")
+            prompt = integrate_characters_with_prompt(prompt, args.characters)
         
         # Generate the text
         response = generator(prompt, return_full_text=False)[0]['generated_text']
@@ -327,7 +343,19 @@ def main():
     parser.add_argument("--outline_file", help="Path to YAML outline file")
     parser.add_argument("--logline", help="Logline to generate a story from")
     
+    # Character profiles
+    parser.add_argument("--characters", nargs="+", help="Character profiles to include (e.g., clerk, governess)")
+    parser.add_argument("--list_characters", action="store_true", help="List available character profiles and exit")
+    
     args = parser.parse_args()
+    
+    # If requested, list available characters and exit
+    if args.list_characters:
+        characters = list_available_characters()
+        print("Available character profiles:")
+        for character in sorted(characters):
+            print(f"  - {character}")
+        return
     
     # Load the persona and seed scene
     persona = load_text_file(args.persona)

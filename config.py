@@ -17,3 +17,4 @@ DEFAULTS = {
 # Paths
 PROMPTS_DIR = "prompts"
 OUTPUTS_DIR = "outputs"
+CHARACTERS_DIR = "prompts/characters"
