@@ -1,0 +1,53 @@
+# Python virtual environment
+venv/
+env/
+.env/
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# Generated outputs
+outputs/
+*.log
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+.spyderproject
+.spyproject
+.ropeproject
+
+# Operating system files
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Model cache
+**/cache/
+**/.cache/
+**/.pytorch_pretrained_bert/
+**/.transformers_cache/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/

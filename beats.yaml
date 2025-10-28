@@ -1,0 +1,31 @@
+title: "The Parcel's Secret"
+setting: "Fog-shrouded London, November 1865"
+protagonist: "Edward Thornhill, a diligent clerk at Harrington & Sons Banking House"
+beats:
+  - name: "Setup"
+    description: "Edward receives an unusual parcel to deliver on a foggy evening"
+    key_elements:
+      - "Edward is working late at the banking house when his superior hands him a sealed parcel"
+      - "The parcel must be delivered to an address in a questionable part of London before midnight"
+      - "Edward notes the unusual weight of the package and his superior's nervous demeanor"
+  
+  - name: "Complication"
+    description: "Edward encounters suspicious figures who seem to know about the parcel"
+    key_elements:
+      - "As Edward makes his way through the fog, he notices he is being followed"
+      - "A stranger attempts to engage him in conversation about his employers"
+      - "Edward narrowly escapes an apparent robbery attempt near Blackfriars Bridge"
+  
+  - name: "Turn"
+    description: "Edward discovers the true nature of the parcel and must decide what to do"
+    key_elements:
+      - "The parcel is accidentally damaged, revealing documents that implicate his employers in fraud"
+      - "Edward realizes he is being used as an unwitting accomplice"
+      - "He confronts his moral duty against his loyalty to his employers"
+  
+  - name: "Resolution"
+    description: "Edward makes a difficult choice and faces the consequences"
+    key_elements:
+      - "Edward delivers the parcel to the authorities instead of the intended recipient"
+      - "The banking house scandal becomes public, costing Edward his position"
+      - "Edward is offered a new position by an honest businessman who values his integrity"
