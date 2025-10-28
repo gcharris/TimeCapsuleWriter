@@ -26,7 +26,7 @@ from character_utils import (
     integrate_characters_with_prompt
 )
 
-def setup_generator(args):
+def setup_generator(args, trust_remote_code: bool = False):
     """
     Set up the text generation pipeline.
     
@@ -39,11 +39,12 @@ def setup_generator(args):
     model_id = args.model or config.MODEL_ID
     print(f"Loading model: {model_id}")
     
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=trust_remote_code)
     model = AutoModelForCausalLM.from_pretrained(
-        model_id, 
-        torch_dtype=torch.float16,
-        device_map="auto",
+        model_id,
+        trust_remote_code=trust_remote_code,
+        torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+        device_map="auto" if torch.cuda.is_available() else None,
         low_cpu_mem_usage=True
     )
     

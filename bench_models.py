@@ -68,11 +68,14 @@ def create_generator(model_id: str):
     start_time = time.time()
     
     # Load tokenizer and model
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    # Default: do not trust remote code unless caller passes it via args
+    trust_flag = False
+    tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=trust_flag)
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
-        torch_dtype=torch.float16,
-        device_map="auto",
+        trust_remote_code=trust_flag,
+        torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+        device_map="auto" if torch.cuda.is_available() else None,
         low_cpu_mem_usage=True
     )
     

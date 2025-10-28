@@ -130,7 +130,7 @@ def generate_with_model(
     
     # Set up arguments namespace
     class Args:
-        def __init__(self):
+        def __init__(self, trust_remote_code: bool = False):
             self.model = model_id
             self.seed = seed
             self.max_new_tokens = max_new_tokens
@@ -138,7 +138,9 @@ def generate_with_model(
             self.top_p = 0.95
             self.repetition_penalty = 1.1
             self.characters = characters
-    
+            self.trust_remote_code = trust_remote_code
+
+    # Allow passing trust_remote_code via kwargs later
     args = Args()
     
     # Measure performance
@@ -147,7 +149,8 @@ def generate_with_model(
     
     # Set up the generator
     try:
-        generator = setup_generator(args)
+        # Pass trust_remote_code into generator setup if present on args
+        generator = setup_generator(args, trust_remote_code=getattr(args, 'trust_remote_code', False))
         
         # Construct the full prompt
         full_prompt = f"{persona}\n\nWrite a Victorian-era short story based on this concept:\n\n{prompt_text}"
@@ -312,6 +315,8 @@ def main():
     # Output options
     parser.add_argument("--output_dir", default="comparisons", 
                         help="Directory to save comparison results")
+    parser.add_argument("--trust_remote_code", action="store_true",
+                        help="Pass trust_remote_code=True to HF from_pretrained for trusted repos")
     
     args = parser.parse_args()
     
@@ -334,7 +339,8 @@ def main():
             prompt_text=args.prompt,
             seed=args.seed,
             characters=args.characters,
-            max_new_tokens=args.max_new_tokens
+            max_new_tokens=args.max_new_tokens,
+            trust_remote_code=args.trust_remote_code,
         )
         results[model_id] = result
     
